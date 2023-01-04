@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  wordpress:
+    image: wordpress:php8.2
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: word_pass
+      WORDPRESS_DB_NAME: word_db
+  mysql:
+    image: mysql:8.0.31
+    restart: always
+    environment:
+      MYSQL_DATABASE: word_db
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: word_pass
+      MYSQL_ROOT_PASSWORD: root_pass
