@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:15.1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin_pass
+      POSTGRES_USER: ADMIN
+  pgAdmin:
+    image: dpage/pgadmin4:6.18
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: arthurgnascto@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin_pass
+    ports:
+      - 80:80
