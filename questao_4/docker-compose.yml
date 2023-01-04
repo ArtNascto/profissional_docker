@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:7.0.7
+    restart: always
+  commander:
+    image: ghcr.io/joeferner/redis-commander:latest
+    restart: always
+    depends_on:
+      - redis
+    environment:
+    - REDIS_HOSTS=local:redis:6379
+    ports:
+    - "8081:8081"
