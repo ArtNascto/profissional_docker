@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  mariaDB:
+    image: mariadb:jammy
+    restart: always
+    environment:
+      MARIADB_USER: ADMIN
+      MARIADB_PASSWORD: admin_pass
+      MARIADB_ROOT_PASSWORD: root_pass
+  myAdmin:
+    image: phpmyadmin:5.2.0
+    restart: always
+    depends_on:
+      - mariaDB
+    ports:
+      - 80:80
+    environment:
+      PMA_ARBITRARY: 1  
