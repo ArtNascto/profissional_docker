@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  rotten-potatoes:
+    build: .
+    restart: always
+    ports:
+      - 5000:5000
+    depends_on:
+      - mongo
+      - express
+    environment:
+      MONGODB_DB: admin
+      MONGODB_HOST: mongo
+      MONGODB_PORT: 27017
+      MONGODB_USERNAME: ADMIN
+      MONGODB_PASSWORD: admin_pass
+  mongo:
+    image: mongo:4.2
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ADMIN
+      MONGO_INITDB_ROOT_PASSWORD: admin_pass
+      MONGO_INITDB_DATABASE: potato
+  express:
+    image: mongo-express:0.54
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ADMIN
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin_pass
+      ME_CONFIG_MONGODB_URL: mongodb://ADMIN:admin_pass@mongo:27017/
